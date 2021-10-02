@@ -1,33 +1,64 @@
 import math
+import numpy
+import platform
+
+
+def get_os_info():
+    result = "\nName: "
+    result += platform.node()
+    result += "\nOS: "
+    result += platform.platform()
+    result += "\nCPU: "
+    result += platform.processor()
+    result += "\nArchitecture: "
+    result += platform.machine()
+    result += "\nMemory: "
+    result += "\nMemory Usage: "
+    result += "\nPython Version: "
+    result += platform.python_version()
+    return result
+
+print(get_os_info)
+
+
+def get_input():
+    try:
+        res = int(input())
+        return res
+    except:
+        return 0
 
 
 def area_of_tetrahedron(side):
-    return (math.sqrt(3) *
-            (side * side))
+    return (side ** 3 / (6 * math.sqrt(2)))
 
 
-def area_of_cube(length, width, height):
-    volume = length * width * height
+def area_of_cube(side):
+    volume = side**3
     return (volume)
 
+def show_menu():
+    print("välja en form")
+    print("1. en kub ")
+    print("2. tetrahedron")
+    print("3. avsluta")
 
-print("välja en form")
-print("1. en kub ")
-print("2. tetrahedron")
 
 try:
-    shape = int(input())
-    if shape == 1:
-        length = float(input('Ange längden på en kuboid i cm '))
-        width = float(input('Ange bredden på en kuboid i cm '))
-        height = float(input('Ange1 höjden på en kuboid i cm '))
-        print("yta av kub = ",
-              area_of_cube(length, width, height), "cm")
+    while True: 
+        show_menu()
+        option = get_input()
+        if option == 1:
+            side = float(input('Ange sida på en kuboid i cm '))
+            print("Volym av kub = ", area_of_cube(side), "cm³")
+        elif option == 2:
+            side = float(input('Ange liksidig  på en tetrahedron i cm '))
+            print("Volym av tetrahedron = ",round(area_of_tetrahedron(side), 4))
+        elif option == 3:
+            break
+        else:
+            print("det finns ett fel med input type")
 
-    if shape == 2:
-        side = float(input('Ange liksidig  på en tetrahedron i cm '))
-        print("yta av tetrahedron = ",
-              round(area_of_tetrahedron(side), 4))
 
 except:
-    print("det finns ett fel med input type")
+    print("error occurred during operation")
